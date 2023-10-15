@@ -1,0 +1,83 @@
+gamemodeauto: dlopen failed - libgamemode.so: cannot open shared object file: No such file or directory
+gamemodeauto: dlopen failed - libgamemode.so: cannot open shared object file: No such file or directory
+gamemodeauto: dlopen failed - libgamemode.so: cannot open shared object file: No such file or directory
+gamemodeauto: dlopen failed - libgamemode.so: cannot open shared object file: No such file or directory
+gamemodeauto: dlopen failed - libgamemode.so: cannot open shared object file: No such file or directory
+gamemodeauto: dlopen failed - libgamemode.so: cannot open shared object file: No such file or directory
+gamemodeauto: dlopen failed - libgamemode.so: cannot open shared object file: No such file or directory
+gamemodeauto: dlopen failed - libgamemode.so: cannot open shared object file: No such file or directory
+gamemodeauto: dlopen failed - libgamemode.so: cannot open shared object file: No such file or directory
+fsync: up and running.
+wine: RLIMIT_NICE is <= 20, unable to use setpriority safely
+gamemodeauto: dlopen failed - libgamemode.so: cannot open shared object file: No such file or directory
+gamemodeauto: dlopen failed - libgamemode.so: cannot open shared object file: No such file or directory
+gamemodeauto: dlopen failed - libgamemode.so: cannot open shared object file: No such file or directory
+gamemodeauto: dlopen failed - libgamemode.so: cannot open shared object file: No such file or directory
+gamemodeauto: dlopen failed - libgamemode.so: cannot open shared object file: No such file or directory
+gamemodeauto: dlopen failed - libgamemode.so: cannot open shared object file: No such file or directory
+gamemodeauto: dlopen failed - libgamemode.so: cannot open shared object file: No such file or directory
+gamemodeauto: dlopen failed - libgamemode.so: cannot open shared object file: No such file or directory
+gamemodeauto: dlopen failed - libgamemode.so: cannot open shared object file: No such file or directory
+gamemodeauto: dlopen failed - libgamemode.so: cannot open shared object file: No such file or directory
+Setting breakpad minidump AppID = 1716740
+Steam_SetMinidumpSteamID:  Caching Steam ID:  76561198151596097 [API loaded no]
+gamemodeauto: dlopen failed - libgamemode.so: cannot open shared object file: No such file or directory
+Fossilize INFO: Overriding serialization path: "/home/cheako/.steam/debian-installation/steamapps/shadercache/1716740/fozpipelinesv6/steamapprun_pipeline_cache".
+Setting breakpad minidump AppID = 1716740
+SteamInternal_SetMinidumpSteamID:  Caching Steam ID:  76561198151596097 [API loaded no]
+[src/handlers/pipelines.rs:124] &my_data = MyDumper {
+    ctr: 150,
+    create_infos: [
+        (
+            0,
+            ShaderData {
+                module_crate_flags: 0,
+                stage_flags: 32,
+                state_create_flags: 2,
+                name: "main",
+                bool: false,
+            },
+            0x7f5930189f90,
+            0x0,
+            -1,
+        ),
+    ],
+}
+[src/handlers/pipelines.rs:124] &my_data = MyDumper {
+    ctr: 151,
+    create_infos: [
+        (
+            0,
+            ShaderData {
+                module_crate_flags: 0,
+                stage_flags: 32,
+                state_create_flags: 2,
+                name: "main",
+                bool: false,
+            },
+            0x7f5930189f90,
+            0x0,
+            -1,
+        ),
+    ],
+}
+[src/handlers/pipelines.rs:124] &my_data = MyDumper {
+    ctr: 152,
+    create_infos: [
+        (
+            0,
+            ShaderData {
+                module_crate_flags: 0,
+                stage_flags: 32,
+                state_create_flags: 2,
+                name: "main",
+                bool: false,
+            },
+            0x7f5930189f90,
+            0x0,
+            -1,
+        ),
+    ],
+}
+gamemodeauto: dlopen failed - libgamemode.so: cannot open shared object file: No such file or directory
+pid 3095603 != 3095602, skipping destruction (fork without exec?)
