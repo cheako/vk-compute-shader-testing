@@ -27,20 +27,19 @@ fn main() {
 
     let instance = unsafe { entry.create_instance(&create_info, None) }.unwrap();
 
-    let physical_devices = unsafe { instance.enumerate_physical_devices() }.unwrap();
+    let mut physical_devices = unsafe { instance.enumerate_physical_devices() }.unwrap();
 
-    let physical_device = physical_devices
-        .iter()
-        .find_map(|physical_device| {
-            let prop = unsafe { instance.get_physical_device_properties(*physical_device) };
+    physical_devices.sort_by_key(|physical_device| {
+        let mut device_prop = vk::PhysicalDeviceDriverProperties::builder();
+        let mut prop = vk::PhysicalDeviceProperties2::builder().push_next(&mut device_prop);
+        unsafe { instance.get_physical_device_properties2(*physical_device, &mut prop) };
 
-            if prop.device_type == vk::PhysicalDeviceType::DISCRETE_GPU {
-                Some(physical_device)
-            } else {
-                None
-            }
-        })
-        .unwrap();
+        match device_prop.driver_id {
+            vk::DriverId::MESA_LLVMPIPE => 100,
+            vk::DriverId::INTEL_OPEN_SOURCE_MESA => -100,
+            _ => -10,
+        }
+    });
 
     // I'm just guessing here.
     let enabled_extension_names = [
@@ -69,7 +68,9 @@ fn main() {
         .push_next(&mut features1)
         .push_next(&mut features2);
 
-    let device = unsafe { instance.create_device(*physical_device, &create_info, None) }.unwrap();
+    let device =
+        unsafe { instance.create_device(*physical_devices.first().unwrap(), &create_info, None) }
+            .unwrap();
 
     // pSetLayouts[0]:                 const VkDescriptorSetLayout = 0x7e511920
     // pSetLayouts[1]:                 const VkDescriptorSetLayout = 0x7de00d60
