@@ -97,261 +97,292 @@ fn main() {
         | vk::ShaderStageFlags::empty();
 
     let set_layouts = [
-        unsafe { device.create_descriptor_set_layout( &*{
-                   #[rustfmt::skip]
-                    r#"
-                        flags:                          VkDescriptorSetLayoutCreateFlags = 2 (VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT)
-        bindingCount:                   uint32_t = 1
-        pBindings:                      const VkDescriptorSetLayoutBinding* = 0x11e6c0
-            pBindings[0]:                   const VkDescriptorSetLayoutBinding = 0x11e6c0:
-                binding:                        uint32_t = 0
-                descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_SAMPLER (0)
-                descriptorCount:                uint32_t = 2048
-                stageFlags:                     VkShaderStageFlags = 2147483647 template0 
-                pImmutableSamplers:             const VkSampler* = NULL
-        pNext:                          VkDescriptorSetLayoutBindingFlagsCreateInfo = 0x11e560:
-            sType:                          VkStructureType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO (1000161000)
-            pNext:                          const void* = NULL
-            bindingCount:                   uint32_t = 1
-            pBindingFlags:                  const VkDescriptorBindingFlags* = 0x11e600
-                pBindingFlags[0]:               const VkDescriptorBindingFlags = 15 (VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT 
- VK_DESCRIPTOR_BINDING_UPDATE_UNUSED_WHILE_PENDING_BIT 
- VK_DESCRIPTOR_BINDING_PARTIALLY_BOUND_BIT 
- VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT)
-                "#;
-                vk::DescriptorSetLayoutCreateInfo::builder()
-                    .flags(vk::DescriptorSetLayoutCreateFlags::UPDATE_AFTER_BIND_POOL)
-                    .bindings(&[*vk::DescriptorSetLayoutBinding::builder()
-                        .descriptor_count(2048).descriptor_type(vk::DescriptorType::SAMPLER)
-                        .stage_flags(
-                        template0)])
-                    .push_next(
-                        &mut vk::DescriptorSetLayoutBindingFlagsCreateInfo::builder()
-                            .binding_flags(&[vk::DescriptorBindingFlags::UPDATE_AFTER_BIND
-                                | vk::DescriptorBindingFlags::UPDATE_UNUSED_WHILE_PENDING
-                                | vk::DescriptorBindingFlags::PARTIALLY_BOUND
-                                | vk::DescriptorBindingFlags::VARIABLE_DESCRIPTOR_COUNT]),
-                    )},
+        unsafe {
+            device.create_descriptor_set_layout(
+                &*{
+                    /*
+                                           flags:                          VkDescriptorSetLayoutCreateFlags = 2 (VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT)
+                           bindingCount:                   uint32_t = 1
+                           pBindings:                      const VkDescriptorSetLayoutBinding* = 0x11e6c0
+                               pBindings[0]:                   const VkDescriptorSetLayoutBinding = 0x11e6c0:
+                                   binding:                        uint32_t = 0
+                                   descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_SAMPLER (0)
+                                   descriptorCount:                uint32_t = 2048
+                                   stageFlags:                     VkShaderStageFlags = 2147483647 template0
+                                   pImmutableSamplers:             const VkSampler* = NULL
+                           pNext:                          VkDescriptorSetLayoutBindingFlagsCreateInfo = 0x11e560:
+                               sType:                          VkStructureType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO (1000161000)
+                               pNext:                          const void* = NULL
+                               bindingCount:                   uint32_t = 1
+                               pBindingFlags:                  const VkDescriptorBindingFlags* = 0x11e600
+                                   pBindingFlags[0]:               const VkDescriptorBindingFlags = 15 (VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT
+                    VK_DESCRIPTOR_BINDING_UPDATE_UNUSED_WHILE_PENDING_BIT
+                    VK_DESCRIPTOR_BINDING_PARTIALLY_BOUND_BIT
+                    VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT)
+                            */
+                    vk::DescriptorSetLayoutCreateInfo::builder()
+                        .flags(vk::DescriptorSetLayoutCreateFlags::UPDATE_AFTER_BIND_POOL)
+                        .bindings(&[*vk::DescriptorSetLayoutBinding::builder()
+                            .descriptor_count(2048)
+                            .descriptor_type(vk::DescriptorType::SAMPLER)
+                            .stage_flags(template0)])
+                        .push_next(
+                            &mut vk::DescriptorSetLayoutBindingFlagsCreateInfo::builder()
+                                .binding_flags(&[vk::DescriptorBindingFlags::UPDATE_AFTER_BIND
+                                    | vk::DescriptorBindingFlags::UPDATE_UNUSED_WHILE_PENDING
+                                    | vk::DescriptorBindingFlags::PARTIALLY_BOUND
+                                    | vk::DescriptorBindingFlags::VARIABLE_DESCRIPTOR_COUNT]),
+                        )
+                },
                 None,
             )
         }
         .unwrap(),
-        unsafe { device.create_descriptor_set_layout(
+        unsafe {
+            device.create_descriptor_set_layout(
                 &*{
-                   #[rustfmt::skip]
-            r#"        flags:                          VkDescriptorSetLayoutCreateFlags = 2 (VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT)
-        bindingCount:                   uint32_t = 3
-        pBindings:                      const VkDescriptorSetLayoutBinding* = 0x11e6c0
-            pBindings[0]:                   const VkDescriptorSetLayoutBinding = 0x11e6c0:
-                binding:                        uint32_t = 0
-                descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER (7)
-                descriptorCount:                uint32_t = 1
-                stageFlags:                     VkShaderStageFlags = 2147483647 template0
-                pImmutableSamplers:             const VkSampler* = UNUSED
-            pBindings[1]:                   const VkDescriptorSetLayoutBinding = 0x11e6d8:
-                binding:                        uint32_t = 1
-                descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER (7)
-                descriptorCount:                uint32_t = 1
-                stageFlags:                     VkShaderStageFlags = 2147483647 template0
-                pImmutableSamplers:             const VkSampler* = UNUSED
-            pBindings[2]:                   const VkDescriptorSetLayoutBinding = 0x11e6f0:
-                binding:                        uint32_t = 2
-                descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_MUTABLE_VALVE (1000351000)
-                descriptorCount:                uint32_t = 1000000
-                stageFlags:                     VkShaderStageFlags = 2147483647 template0
-                pImmutableSamplers:             const VkSampler* = UNUSED
-        pNext:                          VkDescriptorSetLayoutBindingFlagsCreateInfo = 0x11e560:
-            sType:                          VkStructureType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO (1000161000)
-            pNext:                          const void* = VkMutableDescriptorTypeCreateInfoVALVE
-            bindingCount:                   uint32_t = 3
-            pBindingFlags:                  const VkDescriptorBindingFlags* = 0x11e600
-                pBindingFlags[0]:               const VkDescriptorBindingFlags = 0
-                pBindingFlags[1]:               const VkDescriptorBindingFlags = 0
-                pBindingFlags[2]:               const VkDescriptorBindingFlags = 15 (VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT 
- VK_DESCRIPTOR_BINDING_UPDATE_UNUSED_WHILE_PENDING_BIT 
- VK_DESCRIPTOR_BINDING_PARTIALLY_BOUND_BIT 
- VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT)
-        pNext:                          VkMutableDescriptorTypeCreateInfoVALVE = 0x11e5e0:
-            sType:                          VkStructureType = VK_STRUCTURE_TYPE_MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_VALVE (1000351002)
-            pNext:                          const void* = NULL
-            mutableDescriptorTypeListCount: uint32_t = 3
-            pMutableDescriptorTypeLists:    const VkMutableDescriptorTypeListVALVE* = 0x11e630
-                pMutableDescriptorTypeLists[0]: const VkMutableDescriptorTypeListVALVE = 0x11e630:
-                    descriptorTypeCount:            uint32_t = 0
-                    pDescriptorTypes:               const VkDescriptorType* = NULL
-                pMutableDescriptorTypeLists[1]: const VkMutableDescriptorTypeListVALVE = 0x11e640:
-                    descriptorTypeCount:            uint32_t = 0
-                    pDescriptorTypes:               const VkDescriptorType* = NULL
-                pMutableDescriptorTypeLists[2]: const VkMutableDescriptorTypeListVALVE = 0x11e650:
-                    descriptorTypeCount:            uint32_t = 5
-                    pDescriptorTypes:               const VkDescriptorType* = 0x11e540
-                        pDescriptorTypes[0]:            const VkDescriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER (7)
-                        pDescriptorTypes[1]:            const VkDescriptorType = VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE (2)
-                        pDescriptorTypes[2]:            const VkDescriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER (4)
-                        pDescriptorTypes[3]:            const VkDescriptorType = VK_DESCRIPTOR_TYPE_STORAGE_IMAGE (3)
-                        pDescriptorTypes[4]:            const VkDescriptorType = VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER (5)
-"#
-                    ;
+                    /*
+                            flags:                          VkDescriptorSetLayoutCreateFlags = 2 (VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT)
+                            bindingCount:                   uint32_t = 3
+                            pBindings:                      const VkDescriptorSetLayoutBinding* = 0x11e6c0
+                                pBindings[0]:                   const VkDescriptorSetLayoutBinding = 0x11e6c0:
+                                    binding:                        uint32_t = 0
+                                    descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER (7)
+                                    descriptorCount:                uint32_t = 1
+                                    stageFlags:                     VkShaderStageFlags = 2147483647 template0
+                                    pImmutableSamplers:             const VkSampler* = UNUSED
+                                pBindings[1]:                   const VkDescriptorSetLayoutBinding = 0x11e6d8:
+                                    binding:                        uint32_t = 1
+                                    descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER (7)
+                                    descriptorCount:                uint32_t = 1
+                                    stageFlags:                     VkShaderStageFlags = 2147483647 template0
+                                    pImmutableSamplers:             const VkSampler* = UNUSED
+                                pBindings[2]:                   const VkDescriptorSetLayoutBinding = 0x11e6f0:
+                                    binding:                        uint32_t = 2
+                                    descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_MUTABLE_VALVE (1000351000)
+                                    descriptorCount:                uint32_t = 1000000
+                                    stageFlags:                     VkShaderStageFlags = 2147483647 template0
+                                    pImmutableSamplers:             const VkSampler* = UNUSED
+                            pNext:                          VkDescriptorSetLayoutBindingFlagsCreateInfo = 0x11e560:
+                                sType:                          VkStructureType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_BINDING_FLAGS_CREATE_INFO (1000161000)
+                                pNext:                          const void* = VkMutableDescriptorTypeCreateInfoVALVE
+                                bindingCount:                   uint32_t = 3
+                                pBindingFlags:                  const VkDescriptorBindingFlags* = 0x11e600
+                                    pBindingFlags[0]:               const VkDescriptorBindingFlags = 0
+                                    pBindingFlags[1]:               const VkDescriptorBindingFlags = 0
+                                    pBindingFlags[2]:               const VkDescriptorBindingFlags = 15 (VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT
+                     VK_DESCRIPTOR_BINDING_UPDATE_UNUSED_WHILE_PENDING_BIT
+                     VK_DESCRIPTOR_BINDING_PARTIALLY_BOUND_BIT
+                     VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT)
+                            pNext:                          VkMutableDescriptorTypeCreateInfoVALVE = 0x11e5e0:
+                                sType:                          VkStructureType = VK_STRUCTURE_TYPE_MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_VALVE (1000351002)
+                                pNext:                          const void* = NULL
+                                mutableDescriptorTypeListCount: uint32_t = 3
+                                pMutableDescriptorTypeLists:    const VkMutableDescriptorTypeListVALVE* = 0x11e630
+                                    pMutableDescriptorTypeLists[0]: const VkMutableDescriptorTypeListVALVE = 0x11e630:
+                                        descriptorTypeCount:            uint32_t = 0
+                                        pDescriptorTypes:               const VkDescriptorType* = NULL
+                                    pMutableDescriptorTypeLists[1]: const VkMutableDescriptorTypeListVALVE = 0x11e640:
+                                        descriptorTypeCount:            uint32_t = 0
+                                        pDescriptorTypes:               const VkDescriptorType* = NULL
+                                    pMutableDescriptorTypeLists[2]: const VkMutableDescriptorTypeListVALVE = 0x11e650:
+                                        descriptorTypeCount:            uint32_t = 5
+                                        pDescriptorTypes:               const VkDescriptorType* = 0x11e540
+                                            pDescriptorTypes[0]:            const VkDescriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER (7)
+                                            pDescriptorTypes[1]:            const VkDescriptorType = VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE (2)
+                                            pDescriptorTypes[2]:            const VkDescriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER (4)
+                                            pDescriptorTypes[3]:            const VkDescriptorType = VK_DESCRIPTOR_TYPE_STORAGE_IMAGE (3)
+                                            pDescriptorTypes[4]:            const VkDescriptorType = VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER (5)
+                    */
                     vk::DescriptorSetLayoutCreateInfo::builder()
-                    .flags(vk::DescriptorSetLayoutCreateFlags::UPDATE_AFTER_BIND_POOL)
-                    .bindings(&[*vk::DescriptorSetLayoutBinding::builder()
-                        .descriptor_count(1).descriptor_type(vk::DescriptorType::STORAGE_BUFFER)
-                        .stage_flags(
-template0                        ),*vk::DescriptorSetLayoutBinding::builder().binding(1)
-                        .descriptor_count(1).descriptor_type(vk::DescriptorType::STORAGE_BUFFER)
-                        .stage_flags(
-template0                        ),*vk::DescriptorSetLayoutBinding::builder().binding(2)
-                        .descriptor_count(1000000).descriptor_type(vk::DescriptorType::MUTABLE_VALVE)
-                        .stage_flags(
-template0                        )])
-                    .push_next(
-                        &mut vk::DescriptorSetLayoutBindingFlagsCreateInfo::builder()
-                            .binding_flags(&[vk::DescriptorBindingFlags::UPDATE_AFTER_BIND
-                                | vk::DescriptorBindingFlags::UPDATE_UNUSED_WHILE_PENDING
-                                | vk::DescriptorBindingFlags::PARTIALLY_BOUND
-                                | vk::DescriptorBindingFlags::VARIABLE_DESCRIPTOR_COUNT]),
-                    )}
-            , None) }.unwrap(),
-        unsafe { device.create_descriptor_set_layout(
+                        .flags(vk::DescriptorSetLayoutCreateFlags::UPDATE_AFTER_BIND_POOL)
+                        .bindings(&[
+                            *vk::DescriptorSetLayoutBinding::builder()
+                                .descriptor_count(1)
+                                .descriptor_type(vk::DescriptorType::STORAGE_BUFFER)
+                                .stage_flags(template0),
+                            *vk::DescriptorSetLayoutBinding::builder()
+                                .binding(1)
+                                .descriptor_count(1)
+                                .descriptor_type(vk::DescriptorType::STORAGE_BUFFER)
+                                .stage_flags(template0),
+                            *vk::DescriptorSetLayoutBinding::builder()
+                                .binding(2)
+                                .descriptor_count(1000000)
+                                .descriptor_type(vk::DescriptorType::MUTABLE_VALVE)
+                                .stage_flags(template0),
+                        ])
+                        .push_next(
+                            &mut vk::DescriptorSetLayoutBindingFlagsCreateInfo::builder()
+                                .binding_flags(&[vk::DescriptorBindingFlags::UPDATE_AFTER_BIND
+                                    | vk::DescriptorBindingFlags::UPDATE_UNUSED_WHILE_PENDING
+                                    | vk::DescriptorBindingFlags::PARTIALLY_BOUND
+                                    | vk::DescriptorBindingFlags::VARIABLE_DESCRIPTOR_COUNT]),
+                        )
+                },
+                None,
+            )
+        }
+        .unwrap(),
+        unsafe {
+            device.create_descriptor_set_layout(
                 &*{
-                   #[rustfmt::skip]
-            r#" 
-        flags:                          VkDescriptorSetLayoutCreateFlags = 0
-        bindingCount:                   uint32_t = 10
-        pBindings:                      const VkDescriptorSetLayoutBinding* = 0xd25de0
-            pBindings[0]:                   const VkDescriptorSetLayoutBinding = 0xd25de0:
-                binding:                        uint32_t = 0
-                descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_SAMPLER (0)
-                descriptorCount:                uint32_t = 1
-                stageFlags:                     VkShaderStageFlags = 2147483647 template0
-                pImmutableSamplers:             const VkSampler* = 0xcb4fd0
-                    pImmutableSamplers[0]:          const VkSampler = 0x7f5930000b70
-            pBindings[1]:                   const VkDescriptorSetLayoutBinding = 0xd25df8:
-                binding:                        uint32_t = 1
-                descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_SAMPLER (0)
-                descriptorCount:                uint32_t = 1
-                stageFlags:                     VkShaderStageFlags = 2147483647 template0
-                pImmutableSamplers:             const VkSampler* = 0xcb4fd8
-                    pImmutableSamplers[0]:          const VkSampler = 0x7f5930000c50
-            pBindings[2]:                   const VkDescriptorSetLayoutBinding = 0xd25e10:
-                binding:                        uint32_t = 2
-                descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_SAMPLER (0)
-                descriptorCount:                uint32_t = 1
-                stageFlags:                     VkShaderStageFlags = 2147483647 template0
-                pImmutableSamplers:             const VkSampler* = 0xcb4fe0
-                    pImmutableSamplers[0]:          const VkSampler = 0x7f5930000d30
-            pBindings[3]:                   const VkDescriptorSetLayoutBinding = 0xd25e28:
-                binding:                        uint32_t = 3
-                descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_SAMPLER (0)
-                descriptorCount:                uint32_t = 1
-                stageFlags:                     VkShaderStageFlags = 2147483647 template0
-                pImmutableSamplers:             const VkSampler* = 0xcb4fe8
-                    pImmutableSamplers[0]:          const VkSampler = 0x7f5930000e10
-            pBindings[4]:                   const VkDescriptorSetLayoutBinding = 0xd25e40:
-                binding:                        uint32_t = 4
-                descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_SAMPLER (0)
-                descriptorCount:                uint32_t = 1
-                stageFlags:                     VkShaderStageFlags = 2147483647 template0
-                pImmutableSamplers:             const VkSampler* = 0xcb4ff0
-                    pImmutableSamplers[0]:          const VkSampler = 0x7f5930000ef0
-            pBindings[5]:                   const VkDescriptorSetLayoutBinding = 0xd25e58:
-                binding:                        uint32_t = 5
-                descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_SAMPLER (0)
-                descriptorCount:                uint32_t = 1
-                stageFlags:                     VkShaderStageFlags = 2147483647 template0
-                pImmutableSamplers:             const VkSampler* = 0xcb4ff8
-                    pImmutableSamplers[0]:          const VkSampler = 0x7f5930000fd0
-            pBindings[6]:                   const VkDescriptorSetLayoutBinding = 0xd25e70:
-                binding:                        uint32_t = 6
-                descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_SAMPLER (0)
-                descriptorCount:                uint32_t = 1
-                stageFlags:                     VkShaderStageFlags = 2147483647 template0
-                pImmutableSamplers:             const VkSampler* = 0xcb5000
-                    pImmutableSamplers[0]:          const VkSampler = 0x7f59300010b0
-            pBindings[7]:                   const VkDescriptorSetLayoutBinding = 0xd25e88:
-                binding:                        uint32_t = 7
-                descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_SAMPLER (0)
-                descriptorCount:                uint32_t = 1
-                stageFlags:                     VkShaderStageFlags = 2147483647 template0
-                pImmutableSamplers:             const VkSampler* = 0xcb5008
-                    pImmutableSamplers[0]:          const VkSampler = 0x7f5930001190
-            pBindings[8]:                   const VkDescriptorSetLayoutBinding = 0xd25ea0:
-                binding:                        uint32_t = 8
-                descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_SAMPLER (0)
-                descriptorCount:                uint32_t = 1
-                stageFlags:                     VkShaderStageFlags = 2147483647 template0
-                pImmutableSamplers:             const VkSampler* = 0xcb5010
-                    pImmutableSamplers[0]:          const VkSampler = 0x7f5930001270
-            pBindings[9]:                   const VkDescriptorSetLayoutBinding = 0xd25eb8:
-                binding:                        uint32_t = 9
-                descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_SAMPLER (0)
-                descriptorCount:                uint32_t = 1
-                stageFlags:                     VkShaderStageFlags = 2147483647 template0
-                pImmutableSamplers:             const VkSampler* = 0xcb5018
-                    pImmutableSamplers[0]:          const VkSampler = 0x7f5930001350
-
-
-            "#
-                    ;
+                    /*
+                            flags:                          VkDescriptorSetLayoutCreateFlags = 0
+                            bindingCount:                   uint32_t = 10
+                            pBindings:                      const VkDescriptorSetLayoutBinding* = 0xd25de0
+                                pBindings[0]:                   const VkDescriptorSetLayoutBinding = 0xd25de0:
+                                    binding:                        uint32_t = 0
+                                    descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_SAMPLER (0)
+                                    descriptorCount:                uint32_t = 1
+                                    stageFlags:                     VkShaderStageFlags = 2147483647 template0
+                                    pImmutableSamplers:             const VkSampler* = 0xcb4fd0
+                                        pImmutableSamplers[0]:          const VkSampler = 0x7f5930000b70
+                                pBindings[1]:                   const VkDescriptorSetLayoutBinding = 0xd25df8:
+                                    binding:                        uint32_t = 1
+                                    descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_SAMPLER (0)
+                                    descriptorCount:                uint32_t = 1
+                                    stageFlags:                     VkShaderStageFlags = 2147483647 template0
+                                    pImmutableSamplers:             const VkSampler* = 0xcb4fd8
+                                        pImmutableSamplers[0]:          const VkSampler = 0x7f5930000c50
+                                pBindings[2]:                   const VkDescriptorSetLayoutBinding = 0xd25e10:
+                                    binding:                        uint32_t = 2
+                                    descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_SAMPLER (0)
+                                    descriptorCount:                uint32_t = 1
+                                    stageFlags:                     VkShaderStageFlags = 2147483647 template0
+                                    pImmutableSamplers:             const VkSampler* = 0xcb4fe0
+                                        pImmutableSamplers[0]:          const VkSampler = 0x7f5930000d30
+                                pBindings[3]:                   const VkDescriptorSetLayoutBinding = 0xd25e28:
+                                    binding:                        uint32_t = 3
+                                    descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_SAMPLER (0)
+                                    descriptorCount:                uint32_t = 1
+                                    stageFlags:                     VkShaderStageFlags = 2147483647 template0
+                                    pImmutableSamplers:             const VkSampler* = 0xcb4fe8
+                                        pImmutableSamplers[0]:          const VkSampler = 0x7f5930000e10
+                                pBindings[4]:                   const VkDescriptorSetLayoutBinding = 0xd25e40:
+                                    binding:                        uint32_t = 4
+                                    descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_SAMPLER (0)
+                                    descriptorCount:                uint32_t = 1
+                                    stageFlags:                     VkShaderStageFlags = 2147483647 template0
+                                    pImmutableSamplers:             const VkSampler* = 0xcb4ff0
+                                        pImmutableSamplers[0]:          const VkSampler = 0x7f5930000ef0
+                                pBindings[5]:                   const VkDescriptorSetLayoutBinding = 0xd25e58:
+                                    binding:                        uint32_t = 5
+                                    descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_SAMPLER (0)
+                                    descriptorCount:                uint32_t = 1
+                                    stageFlags:                     VkShaderStageFlags = 2147483647 template0
+                                    pImmutableSamplers:             const VkSampler* = 0xcb4ff8
+                                        pImmutableSamplers[0]:          const VkSampler = 0x7f5930000fd0
+                                pBindings[6]:                   const VkDescriptorSetLayoutBinding = 0xd25e70:
+                                    binding:                        uint32_t = 6
+                                    descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_SAMPLER (0)
+                                    descriptorCount:                uint32_t = 1
+                                    stageFlags:                     VkShaderStageFlags = 2147483647 template0
+                                    pImmutableSamplers:             const VkSampler* = 0xcb5000
+                                        pImmutableSamplers[0]:          const VkSampler = 0x7f59300010b0
+                                pBindings[7]:                   const VkDescriptorSetLayoutBinding = 0xd25e88:
+                                    binding:                        uint32_t = 7
+                                    descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_SAMPLER (0)
+                                    descriptorCount:                uint32_t = 1
+                                    stageFlags:                     VkShaderStageFlags = 2147483647 template0
+                                    pImmutableSamplers:             const VkSampler* = 0xcb5008
+                                        pImmutableSamplers[0]:          const VkSampler = 0x7f5930001190
+                                pBindings[8]:                   const VkDescriptorSetLayoutBinding = 0xd25ea0:
+                                    binding:                        uint32_t = 8
+                                    descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_SAMPLER (0)
+                                    descriptorCount:                uint32_t = 1
+                                    stageFlags:                     VkShaderStageFlags = 2147483647 template0
+                                    pImmutableSamplers:             const VkSampler* = 0xcb5010
+                                        pImmutableSamplers[0]:          const VkSampler = 0x7f5930001270
+                                pBindings[9]:                   const VkDescriptorSetLayoutBinding = 0xd25eb8:
+                                    binding:                        uint32_t = 9
+                                    descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_SAMPLER (0)
+                                    descriptorCount:                uint32_t = 1
+                                    stageFlags:                     VkShaderStageFlags = 2147483647 template0
+                                    pImmutableSamplers:             const VkSampler* = 0xcb5018
+                                        pImmutableSamplers[0]:          const VkSampler = 0x7f5930001350
+                    */
                     vk::DescriptorSetLayoutCreateInfo::builder()
-                    .flags(vk::DescriptorSetLayoutCreateFlags::UPDATE_AFTER_BIND_POOL)
-                    .bindings(&[*vk::DescriptorSetLayoutBinding::builder().binding(1)
-                        .descriptor_count(1).descriptor_type(vk::DescriptorType::SAMPLER)
-                        .stage_flags(
-template0                        ),*vk::DescriptorSetLayoutBinding::builder().binding(1)
-                        .descriptor_count(1).descriptor_type(vk::DescriptorType::SAMPLER)
-                        .stage_flags(
-template0                        ),*vk::DescriptorSetLayoutBinding::builder().binding(1)
-                        .descriptor_count(1).descriptor_type(vk::DescriptorType::SAMPLER)
-                        .stage_flags(
-template0                        ),*vk::DescriptorSetLayoutBinding::builder().binding(1)
-                        .descriptor_count(1).descriptor_type(vk::DescriptorType::SAMPLER)
-                        .stage_flags(
-template0                        ),*vk::DescriptorSetLayoutBinding::builder().binding(1)
-                        .descriptor_count(1).descriptor_type(vk::DescriptorType::SAMPLER)
-                        .stage_flags(
-template0                        ),*vk::DescriptorSetLayoutBinding::builder().binding(1)
-                        .descriptor_count(1).descriptor_type(vk::DescriptorType::SAMPLER)
-                        .stage_flags(
-template0                        ),*vk::DescriptorSetLayoutBinding::builder().binding(1)
-                        .descriptor_count(1).descriptor_type(vk::DescriptorType::SAMPLER)
-                        .stage_flags(
-template0                        ),*vk::DescriptorSetLayoutBinding::builder().binding(1)
-                        .descriptor_count(1).descriptor_type(vk::DescriptorType::SAMPLER)
-                        .stage_flags(
-template0                        ),])
-                    .push_next(
-                        &mut vk::DescriptorSetLayoutBindingFlagsCreateInfo::builder()
-                            .binding_flags(&[vk::DescriptorBindingFlags::UPDATE_AFTER_BIND
-                                | vk::DescriptorBindingFlags::UPDATE_UNUSED_WHILE_PENDING
-                                | vk::DescriptorBindingFlags::PARTIALLY_BOUND
-                                | vk::DescriptorBindingFlags::VARIABLE_DESCRIPTOR_COUNT]),
-                    )}
-            , None) }.unwrap(),
-        unsafe { device.create_descriptor_set_layout(
+                        .flags(vk::DescriptorSetLayoutCreateFlags::UPDATE_AFTER_BIND_POOL)
+                        .bindings(&[
+                            *vk::DescriptorSetLayoutBinding::builder()
+                                .binding(1)
+                                .descriptor_count(1)
+                                .descriptor_type(vk::DescriptorType::SAMPLER)
+                                .stage_flags(template0),
+                            *vk::DescriptorSetLayoutBinding::builder()
+                                .binding(1)
+                                .descriptor_count(1)
+                                .descriptor_type(vk::DescriptorType::SAMPLER)
+                                .stage_flags(template0),
+                            *vk::DescriptorSetLayoutBinding::builder()
+                                .binding(1)
+                                .descriptor_count(1)
+                                .descriptor_type(vk::DescriptorType::SAMPLER)
+                                .stage_flags(template0),
+                            *vk::DescriptorSetLayoutBinding::builder()
+                                .binding(1)
+                                .descriptor_count(1)
+                                .descriptor_type(vk::DescriptorType::SAMPLER)
+                                .stage_flags(template0),
+                            *vk::DescriptorSetLayoutBinding::builder()
+                                .binding(1)
+                                .descriptor_count(1)
+                                .descriptor_type(vk::DescriptorType::SAMPLER)
+                                .stage_flags(template0),
+                            *vk::DescriptorSetLayoutBinding::builder()
+                                .binding(1)
+                                .descriptor_count(1)
+                                .descriptor_type(vk::DescriptorType::SAMPLER)
+                                .stage_flags(template0),
+                            *vk::DescriptorSetLayoutBinding::builder()
+                                .binding(1)
+                                .descriptor_count(1)
+                                .descriptor_type(vk::DescriptorType::SAMPLER)
+                                .stage_flags(template0),
+                            *vk::DescriptorSetLayoutBinding::builder()
+                                .binding(1)
+                                .descriptor_count(1)
+                                .descriptor_type(vk::DescriptorType::SAMPLER)
+                                .stage_flags(template0),
+                        ])
+                        .push_next(
+                            &mut vk::DescriptorSetLayoutBindingFlagsCreateInfo::builder()
+                                .binding_flags(&[vk::DescriptorBindingFlags::UPDATE_AFTER_BIND
+                                    | vk::DescriptorBindingFlags::UPDATE_UNUSED_WHILE_PENDING
+                                    | vk::DescriptorBindingFlags::PARTIALLY_BOUND
+                                    | vk::DescriptorBindingFlags::VARIABLE_DESCRIPTOR_COUNT]),
+                        )
+                },
+                None,
+            )
+        }
+        .unwrap(),
+        unsafe {
+            device.create_descriptor_set_layout(
                 &*{
-                   #[rustfmt::skip]
-            r#"  
-        flags:                          VkDescriptorSetLayoutCreateFlags = 1 (VK_DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT_KHR)
-        bindingCount:                   uint32_t = 1
-        pBindings:                      const VkDescriptorSetLayoutBinding* = 0xa6c410
-            pBindings[0]:                   const VkDescriptorSetLayoutBinding = 0xa6c410:
-                binding:                        uint32_t = 0
-                descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER (6)
-                descriptorCount:                uint32_t = 1
-                stageFlags:                     VkShaderStageFlags = 2147483647 template0
-                pImmutableSamplers:             const VkSampler* = UNUSED
-            "#
-                    ;
+                    /*
+                           flags:                          VkDescriptorSetLayoutCreateFlags = 1 (VK_DESCRIPTOR_SET_LAYOUT_CREATE_PUSH_DESCRIPTOR_BIT_KHR)
+                           bindingCount:                   uint32_t = 1
+                           pBindings:                      const VkDescriptorSetLayoutBinding* = 0xa6c410
+                               pBindings[0]:                   const VkDescriptorSetLayoutBinding = 0xa6c410:
+                                   binding:                        uint32_t = 0
+                                   descriptorType:                 VkDescriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER (6)
+                                   descriptorCount:                uint32_t = 1
+                                   stageFlags:                     VkShaderStageFlags = 2147483647 template0
+                                   pImmutableSamplers:             const VkSampler* = UNUSED
+                    */
                     vk::DescriptorSetLayoutCreateInfo::builder()
-                    .flags(vk::DescriptorSetLayoutCreateFlags::UPDATE_AFTER_BIND_POOL)
-                    .bindings(&[*vk::DescriptorSetLayoutBinding::builder()
-                        .descriptor_count(1).descriptor_type(vk::DescriptorType::UNIFORM_BUFFER)
-                        .stage_flags(
-                            template0
-                        )]
-                        )}
-            , None) }.unwrap(),
+                        .flags(vk::DescriptorSetLayoutCreateFlags::UPDATE_AFTER_BIND_POOL)
+                        .bindings(&[*vk::DescriptorSetLayoutBinding::builder()
+                            .descriptor_count(1)
+                            .descriptor_type(vk::DescriptorType::UNIFORM_BUFFER)
+                            .stage_flags(template0)])
+                },
+                None,
+            )
+        }
+        .unwrap(),
     ];
 
     let pipeline_layout = unsafe {
