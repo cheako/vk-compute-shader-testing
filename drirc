@@ -1,0 +1,10 @@
+<?xml version="1.0" standalone="yes"?>
+
+<driconf>
+    <device driver="anv">
+        <application name="Starfield" executable="vk-compute-shader-testing">
+            <!-- option name="force_vk_vendor" value="0x1002" /-->
+            <option name="shader_spilling_rate" value="15" />
+        </application>
+    </device>
+</driconf>
