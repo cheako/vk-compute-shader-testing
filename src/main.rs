@@ -17,7 +17,41 @@ fn main() {
 
     let mut enabled_layer_names = vec![];
 
-    if cfg!(not(feature = "no_validation")) {
+    let mut no_validation = false;
+    let mut shader_id = None;
+
+    for input in std::env::args().skip(1) {
+        use nom::{
+            bytes::complete::tag,
+            character::complete::digit1,
+            combinator::{map_res, verify},
+            error::Error,
+            sequence::preceded,
+        };
+        let mut understood = false;
+        if tag::<_, _, Error<_>>("-v").parse(input.as_str()).is_ok() {
+            no_validation = true;
+            understood = true;
+        }
+        if let Ok((_, id)) = preceded(
+            tag("-"),
+            verify(
+                map_res(digit1::<_, Error<_>>, |s: &str| s.parse::<usize>()),
+                |x| x.ge(&1) && x.le(&3),
+            ),
+        )
+        .parse(input.as_str())
+        {
+            shader_id = Some(id - 1);
+            understood = true;
+        }
+        if input.as_str() == "" {
+            understood = true;
+        }
+        assert!(understood, "not understood: {}", input);
+    }
+
+    if !no_validation {
         enabled_layer_names.push("VK_LAYER_KHRONOS_validation\0".as_ptr().cast())
     }
 
@@ -393,13 +427,12 @@ fn main() {
     }
     .unwrap();
 
-    let mut rng = rand::thread_rng();
-    let mut file = std::fs::File::open(match rng.gen_range(0..=2) {
-        0 => "data/150-0.bin",
-        1 => "data/151-0.bin",
-        2 => "data/152-0.bin",
-        _ => unreachable!(),
-    })
+    let mut file = std::fs::File::open(
+        ["data/150-0.bin", "data/151-0.bin", "data/152-0.bin"][shader_id.unwrap_or_else(|| {
+            let mut rng = rand::thread_rng();
+            rng.gen_range(0..=2)
+        })],
+    )
     .unwrap();
 
     // Read the contents of the file into a Vec<u8>
