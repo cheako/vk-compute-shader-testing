@@ -248,10 +248,17 @@ fn main() {
                         ])
                         .push_next(
                             &mut vk::DescriptorSetLayoutBindingFlagsCreateInfo::builder()
-                                .binding_flags(&[vk::DescriptorBindingFlags::UPDATE_AFTER_BIND
+                                .binding_flags(
+                                    &(0..3)
+                                        .into_iter()
+                                        .map(|_| {
+                                            vk::DescriptorBindingFlags::UPDATE_AFTER_BIND
                                     | vk::DescriptorBindingFlags::UPDATE_UNUSED_WHILE_PENDING
                                     | vk::DescriptorBindingFlags::PARTIALLY_BOUND
-                                    | vk::DescriptorBindingFlags::VARIABLE_DESCRIPTOR_COUNT]),
+                                    | vk::DescriptorBindingFlags::VARIABLE_DESCRIPTOR_COUNT
+                                        })
+                                        .collect::<Box<_>>(),
+                                ),
                         )
                 },
                 None,
@@ -340,7 +347,7 @@ fn main() {
                         .flags(vk::DescriptorSetLayoutCreateFlags::UPDATE_AFTER_BIND_POOL)
                         .bindings(&[
                             *vk::DescriptorSetLayoutBinding::builder()
-                                .binding(1)
+                                .binding(0)
                                 .descriptor_count(1)
                                 .descriptor_type(vk::DescriptorType::SAMPLER)
                                 .stage_flags(template0),
@@ -350,42 +357,59 @@ fn main() {
                                 .descriptor_type(vk::DescriptorType::SAMPLER)
                                 .stage_flags(template0),
                             *vk::DescriptorSetLayoutBinding::builder()
-                                .binding(1)
+                                .binding(2)
                                 .descriptor_count(1)
                                 .descriptor_type(vk::DescriptorType::SAMPLER)
                                 .stage_flags(template0),
                             *vk::DescriptorSetLayoutBinding::builder()
-                                .binding(1)
+                                .binding(3)
                                 .descriptor_count(1)
                                 .descriptor_type(vk::DescriptorType::SAMPLER)
                                 .stage_flags(template0),
                             *vk::DescriptorSetLayoutBinding::builder()
-                                .binding(1)
+                                .binding(4)
                                 .descriptor_count(1)
                                 .descriptor_type(vk::DescriptorType::SAMPLER)
                                 .stage_flags(template0),
                             *vk::DescriptorSetLayoutBinding::builder()
-                                .binding(1)
+                                .binding(5)
                                 .descriptor_count(1)
                                 .descriptor_type(vk::DescriptorType::SAMPLER)
                                 .stage_flags(template0),
                             *vk::DescriptorSetLayoutBinding::builder()
-                                .binding(1)
+                                .binding(6)
                                 .descriptor_count(1)
                                 .descriptor_type(vk::DescriptorType::SAMPLER)
                                 .stage_flags(template0),
                             *vk::DescriptorSetLayoutBinding::builder()
-                                .binding(1)
+                                .binding(7)
+                                .descriptor_count(1)
+                                .descriptor_type(vk::DescriptorType::SAMPLER)
+                                .stage_flags(template0),
+                            *vk::DescriptorSetLayoutBinding::builder()
+                                .binding(8)
+                                .descriptor_count(1)
+                                .descriptor_type(vk::DescriptorType::SAMPLER)
+                                .stage_flags(template0),
+                            *vk::DescriptorSetLayoutBinding::builder()
+                                .binding(9)
                                 .descriptor_count(1)
                                 .descriptor_type(vk::DescriptorType::SAMPLER)
                                 .stage_flags(template0),
                         ])
                         .push_next(
                             &mut vk::DescriptorSetLayoutBindingFlagsCreateInfo::builder()
-                                .binding_flags(&[vk::DescriptorBindingFlags::UPDATE_AFTER_BIND
+                                .binding_flags(
+                                    &(0..10)
+                                        .into_iter()
+                                        .map(|_| {
+                                            vk::DescriptorBindingFlags::UPDATE_AFTER_BIND
                                     | vk::DescriptorBindingFlags::UPDATE_UNUSED_WHILE_PENDING
                                     | vk::DescriptorBindingFlags::PARTIALLY_BOUND
-                                    | vk::DescriptorBindingFlags::VARIABLE_DESCRIPTOR_COUNT]),
+                                    | vk::DescriptorBindingFlags::VARIABLE_DESCRIPTOR_COUNT
+                                        })
+                                        .collect::<Box<_>>(),
+                                ),
                         )
                 },
                 None,
